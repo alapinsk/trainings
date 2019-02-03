@@ -1,6 +1,56 @@
 USE WideWorldImporters
 GO 
 
+CREATE OR ALTER VIEW [PowerBI].[ItemGroups]
+AS
+SELECT [StockGroupID] [ItemGroupID]
+      ,[StockGroupName] [ItemGroupName]
+FROM [Warehouse].[StockGroups]
+GO
+
+CREATE OR ALTER VIEW [PowerBI].[ItemItemGroups]
+AS
+SELECT [StockItemID] [ItemID]
+      ,[StockGroupID] [ItemGroupID]
+FROM [Warehouse].[StockItemStockGroups]
+GO
+
+CREATE OR ALTER VIEW [PowerBI].[Items]
+AS
+SELECT si.[StockItemID] [ItemID]
+      ,si.[StockItemName] [ItemName]
+      ,sih.[LastCostPrice] [CostPrice]
+      ,si.[RecommendedRetailPrice]
+      ,c.[ColorName]
+FROM [Warehouse].[StockItems] si
+JOIN [Warehouse].[StockItemHoldings] sih ON sih.StockItemID = si.StockItemID
+LEFT JOIN [Warehouse].[Colors] c ON c.ColorID = si.ColorID
+GO
+
+CREATE OR ALTER VIEW [PowerBI].[Orders]
+AS 
+SELECT	o.OrderID, ol.StockItemID ItemID, o.CustomerID, o.SalespersonPersonID, o.OrderDate, OrderNumber = o.CustomerPurchaseOrderNumber,
+		o.ExpectedDeliveryDate, ol.Quantity, ol.UnitPrice,
+        o.Comments
+FROM [Sales].[Orders] o
+JOIN [Sales].[OrderLines] ol ON o.OrderID = ol.OrderID
+GO
+
+CREATE OR ALTER VIEW [PowerBI].[Customers]
+AS 
+SELECT [CustomerID]
+      ,[CustomerName]
+      ,ci.[CityName] [DeliveryCityName]
+      ,st.[StateProvinceName] [DeliveryStateProvinceName]
+      ,co.[CountryName] [DeliveryCountryName]
+      ,ci.[Location].Lat [DeliveryCityLat]
+      ,ci.[Location].Long [DeliveryCityLong]
+FROM [Sales].[Customers] c
+JOIN [Application].[Cities] ci ON ci.CityID = c.DeliveryCityID
+JOIN [Application].[StateProvinces] st ON st.StateProvinceID = ci.StateProvinceID
+JOIN [Application].[Countries] co ON co.CountryID = st.CountryID
+GO
+
 CREATE OR ALTER VIEW Website.SalesOrders
 AS
 SELECT	o.OrderID, o.OrderDate, OrderNumber = o.CustomerPurchaseOrderNumber,
