@@ -1,0 +1,57 @@
+
+DAY 1
+-----------------------------------------------------------------------------------
+Short intro 
+Introduce yourself 
+Business intelligence / Data science
+PowerBI and the value of data presentation
+Data modelling
+Walk through the UI
+Internals of PowerBI (SSAS - PowerBI is like a mini database on your device)
+Presenting correct and acurate data is the key to success
+Dashboarding idea (show what is relevant that lead to answering business question)
+
+DAX: 
+    
+    Evaluation context (the most important idea!)
+        Filter context
+        Row contexts
+        FILTER KEYWORD
+
+    SUMMARIZECOLUMNS - Aggregations (daily)
+    
+    Never use calculated columns unless necessary
+        Why using is bad 
+
+    Time intelligence
+        Auto time intelligence
+        Built in time intelligence functions
+        Custom time intelligence
+
+Homework
+    
+DAY 2
+-----------------------------------------------------------------------------------
+Power Query 
+    Why we need it ?
+    Bringing external data
+
+Microsoft Cognitive AI
+    How to use it
+    Pricing
+    What is the value of using it
+
+
+DAY 3 
+-----------------------------------------------------------------------------------
+Data science and machine learning introduction 
+
+R language basics 
+
+Exploratory data analysis (EDA)
+
+Examples of machine learning and applied statistics
+    Classification
+    Clustering
+    Time series analysis using ARIMA etc.
+

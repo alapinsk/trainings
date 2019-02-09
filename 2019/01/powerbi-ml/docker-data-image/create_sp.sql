@@ -1,6 +1,15 @@
 USE WideWorldImporters
 GO 
 
+CREATE OR ALTER VIEW [PowerBI].[CustomerTransactions]
+AS
+SELECT CAST(AVG([AmountExcludingTax]) AS int) AS AverageAmountPaid
+      ,COUNT(InvoiceID) AS InvoiceCnt
+	  ,CustomerID
+FROM [WideWorldImporters].[Sales].[CustomerTransactions]
+GROUP BY CustomerID
+GO
+
 CREATE OR ALTER VIEW [PowerBI].[ItemGroups]
 AS
 SELECT [StockGroupID] [ItemGroupID]

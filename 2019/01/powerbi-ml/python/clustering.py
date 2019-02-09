@@ -13,7 +13,7 @@ cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';
 # =======================================
 
 query1 = """
-    SELECT CAST(AVG([AmountExcludingTax]) AS int) AS AvgAntPaid
+    SELECT CAST(AVG([AmountExcludingTax]) AS int) AS AvgAmountPaid
       ,COUNT(InvoiceID) AS InvoiceCnt
     FROM [WideWorldImporters].[Sales].[CustomerTransactions]
     GROUP BY CustomerID 
@@ -24,7 +24,7 @@ df = df[df['InvoiceCnt'] < 1000]
 
 from sklearn.preprocessing import RobustScaler
 scaler = RobustScaler()
-df[['AvgAntPaid','InvoiceCnt']] = scaler.fit_transform(df)
+df[['AvgAmountPaid','InvoiceCnt']] = scaler.fit_transform(df)
 
 
 
