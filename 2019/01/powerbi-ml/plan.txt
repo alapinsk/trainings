@@ -11,6 +11,11 @@ Internals of PowerBI (SSAS - PowerBI is like a mini database on your device)
 Presenting correct and acurate data is the key to success
 Dashboarding idea (show what is relevant that lead to answering business question)
 
+WideWorldImporters Database documentation https://www.sqldatadictionary.com/WideWorldImporters.pdf
+
+UserName: SA
+Password: SqlDevOps2017
+
 DAX: 
     
     Evaluation context (the most important idea!)

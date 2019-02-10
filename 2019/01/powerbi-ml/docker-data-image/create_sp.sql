@@ -36,14 +36,59 @@ JOIN [Warehouse].[StockItemHoldings] sih ON sih.StockItemID = si.StockItemID
 LEFT JOIN [Warehouse].[Colors] c ON c.ColorID = si.ColorID
 GO
 
-CREATE OR ALTER VIEW [PowerBI].[Orders]
+CREATE OR ALTER VIEW [PowerBI].[Suppliers]
 AS 
-SELECT	o.OrderID, ol.StockItemID ItemID, o.CustomerID, o.SalespersonPersonID, o.OrderDate, OrderNumber = o.CustomerPurchaseOrderNumber,
-		o.ExpectedDeliveryDate, ol.Quantity, ol.UnitPrice,
-        o.Comments
+SELECT [SupplierID]
+      ,[SupplierName]
+      ,[SupplierCategoryID]
+      ,[PrimaryContactPersonID]
+      ,[AlternateContactPersonID]
+      ,[DeliveryMethodID]
+      ,[DeliveryCityID]
+      ,[PostalCityID]
+      ,[SupplierReference]
+      ,[BankAccountName]
+      ,[BankAccountBranch]
+      ,[BankAccountCode]
+      ,[BankAccountNumber]
+      ,[BankInternationalCode]
+      ,[PaymentDays]
+      ,[InternalComments]
+      ,[PhoneNumber]
+      ,[FaxNumber]
+      ,[WebsiteURL]
+      ,[DeliveryAddressLine1]
+      ,[DeliveryAddressLine2]
+      ,[DeliveryPostalCode]
+      ,[DeliveryLocation]
+      ,[PostalAddressLine1]
+      ,[PostalAddressLine2]
+      ,[PostalPostalCode]
+      ,[LastEditedBy]
+FROM [WideWorldImporters].[Purchasing].[Suppliers]
+GO
+
+
+CREATE OR ALTER VIEW [PowerBI].[Sales]
+AS 
+SELECT	'S' + CAST(ol.OrderLineID AS VARCHAR(10)) + CAST(ol.OrderID AS VARCHAR(10)) + CAST(o.CustomerID AS VARCHAR(10)) AS SalesID, 
+        ol.StockItemID ItemID, 
+        o.CustomerID, o.SalespersonPersonID, o.OrderDate AS SalesDate, OrderNumber = o.CustomerPurchaseOrderNumber,
+		o.ExpectedDeliveryDate, ol.Quantity, ol.UnitPrice, o.Comments
 FROM [Sales].[Orders] o
 JOIN [Sales].[OrderLines] ol ON o.OrderID = ol.OrderID
 GO
+
+CREATE OR ALTER VIEW [PowerBI].[Purchases]
+AS 
+SELECT	'P' + CAST(ol.PurchaseOrderLineID AS VARCHAR(10)) + CAST(ol.PurchaseOrderID AS VARCHAR(10)) + CAST(o.SupplierID AS VARCHAR(10)) AS PurchaseID, 
+        ol.StockItemID ItemID, 
+        o.SupplierID, o.ContactPersonID, o.OrderDate AS SalesDate, 
+		o.ExpectedDeliveryDate, ol.OrderedOuters, ol.ReceivedOuters, ol.ExpectedUnitPricePerOuter, o.Comments
+FROM [Purchasing].[PurchaseOrders] o
+JOIN [Purchasing].[PurchaseOrderLines] ol ON o.PurchaseOrderID = ol.PurchaseOrderID
+GO
+
 
 CREATE OR ALTER VIEW [PowerBI].[Customers]
 AS 
