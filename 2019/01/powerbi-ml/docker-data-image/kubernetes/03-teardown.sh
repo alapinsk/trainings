@@ -8,4 +8,3 @@ kubectl config delete-context pbitrainingscluster
 kubectl config unset users.clusterUser_pbitrainings_pbitrainingscluster
 
 
-#az group delete --resource-group cognitive --no-wait --yes

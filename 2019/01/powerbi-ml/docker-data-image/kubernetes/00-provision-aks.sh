@@ -23,5 +23,5 @@ clear
 kubectl cluster-info
 
 #deploy cognitive services
-#az group create -n cognitive -l westeurope
-#az cognitiveservices account create -n textanalyticspbitest -g cognitive --kind TextAnalytics --sku S0 -l WestEurope --yes
+az cognitiveservices account create -n textanalyticspbitest -g pbitrainings --kind TextAnalytics --sku S0 -l WestEurope --yes
+
